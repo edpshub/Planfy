@@ -1,0 +1,245 @@
+/*
+ * Planfy Neon Dark Theme (style.css)
+ * Based on the provided neon template.
+ */
+
+/* ★★★★★ THEME CUSTOMIZATION VARIABLES ★★★★★ */
+:root {
+    /* --- Colors --- */
+    --dark-bg: #000000;
+    --dark-card-bg: rgba(10, 10, 10, 0.8);
+    --dark-text-color: #e0e0e0;
+    --dark-text-shadow: rgba(224, 224, 224, 0.5);
+
+    /* --- Neon Animation Colors --- */
+    --neon-color-1: rgba(0, 255, 255, 0.8);   /* Cyan */
+    --neon-color-2: rgba(255, 0, 255, 0.8);   /* Magenta */
+    --neon-color-3: rgba(0, 191, 255, 0.9);   /* Deep Sky Blue */
+    --neon-color-4: rgba(138, 43, 226, 0.8);  /* Blue Violet */
+
+    /* --- Animation Speed --- */
+    --neon-animation-duration: 8s;
+}
+
+/* ===== General Body & Font Styling ===== */
+body {
+    background-color: var(--dark-bg);
+    color: var(--dark-text-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ===== The Core Neon Box Component ===== */
+.neon-box {
+    width: 100%;
+    max-width: 900px;
+    background: var(--dark-card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 0 15px var(--neon-color-1), inset 0 0 15px var(--neon-color-1);
+    animation: neon-border-animation var(--neon-animation-duration) linear infinite;
+}
+
+/* ===== Neon Border Animation Keyframes ===== */
+@keyframes neon-border-animation {
+    0%   { box-shadow: 0 0 15px var(--neon-color-1), inset 0 0 15px var(--neon-color-1); }
+    25%  { box-shadow: 0 0 15px var(--neon-color-2), inset 0 0 15px var(--neon-color-2); }
+    50%  { box-shadow: 0 0 15px var(--neon-color-3), inset 0 0 15px var(--neon-color-3); }
+    75%  { box-shadow: 0 0 15px var(--neon-color-4), inset 0 0 15px var(--neon-color-4); }
+    100% { box-shadow: 0 0 15px var(--neon-color-1), inset 0 0 15px var(--neon-color-1); }
+}
+
+/* ===== Header & Logo ===== */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+
+header img.logo {
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #aaa;
+    margin: 0;
+}
+
+/* ===== Content Styling (Links, Headings) ===== */
+main h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 5px var(--dark-text-shadow);
+}
+
+a {
+    color: var(--neon-color-1);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: white;
+    text-shadow: 0 0 10px var(--neon-color-1);
+}
+
+/* ===== Form Element Styling ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group textarea {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--dark-text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box; /* Important for padding */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--neon-color-1);
+    box-shadow: 0 0 10px var(--neon-color-1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ===== Button Styling ===== */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 2px solid var(--neon-color-1);
+    color: var(--neon-color-1);
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: 0 0 5px var(--neon-color-1);
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: var(--neon-color-1);
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px var(--neon-color-1);
+    text-shadow: none;
+}
+
+/* ===== Choice Page Specific Styling ===== */
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between choice buttons */
+}
+
+/* ===== Form Section Styling (ADD THIS) ===== */
+.form-section-heading {
+    font-size: 1.2em;
+    color: var(--neon-color-3);
+    border-bottom: 1px solid var(--neon-color-3);
+    padding-bottom: 8px;
+    margin-top: 40px; /* Space between sections */
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px var(--neon-color-3);
+}
+
+.form-group textarea {
+    min-height: 100px; /* Textareaの最小高さを少し調整 */
+}
+
+/* ===== Progress Bar & Download Button Styling (ADD THIS) ===== */
+.hidden {
+    display: none !important;
+}
+
+#generation-status-container {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px dashed #444;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 4px;
+    box-sizing: border-box;
+    overflow: hidden; /* 角丸を維持 */
+}
+
+.progress-bar-fill {
+    width: 0%; /* 初期値は0 */
+    height: 20px;
+    background: linear-gradient(90deg, var(--neon-color-1), var(--neon-color-2));
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--neon-color-1);
+    transition: width 0.4s ease-out; /* 幅が変わる際のアニメーション */
+}
+
+#progress-text {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #ccc;
+    transition: color 0.4s;
+}
+
+.btn-download {
+    margin-top: 20px;
+    background-color: var(--neon-color-4);
+    border-color: var(--neon-color-4);
+    color: #fff;
+    text-shadow: 0 0 5px #000;
+}
+
+.btn-download:hover {
+    box-shadow: 0 0 20px var(--neon-color-4);
+    background-color: var(--neon-color-2);
+    border-color: var(--neon-color-2);
+}
+
+.icon-download {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: -0.125em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='white' d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+}

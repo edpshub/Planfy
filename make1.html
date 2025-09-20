@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Plan - Planfy</title> <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="neon-box">
+        <header>
+            <img src="Planfy.png" alt="Planfy Logo" class="logo">
+        </header>
+
+                        <main>
+                            <h2>イベント・遠征・合宿企画書 作成</h2>
+                            <form id="plan-form">
+
+                                <h3 class="form-section-heading">① 基本情報</h3>
+                <div class="form-group">
+                    <label for="plan_name">企画名</label>
+                    <input type="text" id="plan_name" name="plan_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="filename_prefix">PDFファイル名</label>
+                    <input type="text" id="filename_prefix" name="filename_prefix" placeholder="例：第一回定例会議議事録" required>
+                </div>
+                <div class="form-group">
+                    <label for="organizer">主催者 / 担当者</label>
+                    <input type="text" id="organizer" name="organizer" required>
+                </div>
+                <div class="form-group">
+                    <label for="event_format">実施形態</label>
+                    <input type="text" id="event_format" name="event_format" placeholder="例：○○会館での発表会、合宿など">
+                </div>
+                <div class="form-group">
+                    <label for="scale">想定規模</label>
+                    <input type="text" id="scale" name="scale" placeholder="例：小規模2団体合同、約20名等">
+                </div>
+                <div class="form-group">
+                    <label for="event_date">開催予定日 / 時期</label>
+                    <input type="text" id="event_date" name="event_date" placeholder="例：2025年10月25日(土) or 2025年12月頃">
+                </div>
+                <div class="form-group">
+                    <label for="location">開催場所（候補含む）</label>
+                    <input type="text" id="location" name="location" placeholder="例：〇〇大学 A会議室、北海道">
+                </div>
+
+                <h3 class="form-section-heading">② 企画の目的</h3>
+                <div class="form-group">
+                    <textarea id="purpose" name="purpose" rows="4"></textarea>
+                </div>
+
+                <h3 class="form-section-heading">③ 企画概要</h3>
+                <div class="form-group">
+                    <label for="content_overview">実施内容（大まかな流れ・形式）</label>
+                    <textarea id="content_overview" name="content_overview" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="target_audience">想定人数 / ターゲット層</label>
+                    <input type="text" id="target_audience" name="target_audience" placeholder="例：約30名 / 〇〇に興味がある学生">
+                </div>
+
+                <h3 class="form-section-heading">④ 日時・スケジュール案</h3>
+                <div class="form-group">
+                    <label for="overall_schedule">全体日程</label>
+                    <textarea id="overall_schedule" name="overall_schedule" rows="4" placeholder="企画準備から当日までの大まかなスケジュールを記載"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="day_flow">当日の流れ（仮）</label>
+                    <textarea id="day_flow" name="day_flow" rows="6" placeholder="例：&#10;13:00 開場・受付&#10;13:30 開始&#10;..."></textarea>
+                </div>
+
+                <h3 class="form-section-heading">⑤ 概算予算</h3>
+                <div class="form-group">
+                    <textarea id="budget" name="budget" rows="7" placeholder="「項目」「金額（目安）」「備考」が分かるように記載してください。&#10;例：&#10;会場費, 50,000円, 〇〇ホール&#10;講師謝礼, 30,000円, 〇〇様&#10;---&#10;合計, 80,000円"></textarea>
+                </div>
+
+                <h3 class="form-section-heading">⑥ 必要準備・役割分担</h3>
+                <div class="form-group">
+                    <label for="prep_before">事前準備</label>
+                    <textarea id="prep_before" name="prep_before" rows="4" placeholder="会場予約、備品リスト作成、参加者募集など"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prep_day_of">当日準備</label>
+                    <textarea id="prep_day_of" name="prep_day_of" rows="4" placeholder="会場設営、受付準備、機材セッティングなど"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="role_assignment">担当者割り振り</label>
+                    <textarea id="role_assignment" name="role_assignment" rows="4" placeholder="司会：〇〇、受付：△△、..."></textarea>
+                </div>
+
+                <h3 class="form-section-heading">⑦ リスク・注意点</h3>
+                <div class="form-group">
+                     <textarea id="risks" name="risks" rows="4" placeholder="例：参加者数が想定を下回る可能性、当日の機材トラブルなど、天候"></textarea>
+                </div>
+
+                <h3 class="form-section-heading">⑧ 今後の検討事項</h3>
+                <div class="form-group">
+                    <textarea id="future_issues" name="future_issues" rows="4" placeholder="今回の企画から次回に活かすべき点、継続開催の是非など"></textarea>
+                </div>
+
+                <button type="submit" id="generate-btn" class="btn">GENERATE & SEND</button>
+            </form>
+             <div id="generation-status-container" class="hidden">
+                <p id="progress-text">PDFをサーバーで生成中...</p>
+                <div class="progress-bar">
+                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+                <a href="#" id="download-btn" class="btn btn-download hidden">
+                    <span class="icon-download"></span> DOWNLOAD PDF
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
