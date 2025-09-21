@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const url = `https://shard-2509.ownserver.kumassy.com:${port}/generate-pdf`;
+            const url = `http://shard-2509.ownserver.kumassy.com:${port}/generate-pdf`;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
