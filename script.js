@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const url = `https://shard-2509.ownserver.kumassy.com:${port}/generate-pdf`;
-            const formData = new FormData(form);  // 修正: FormDataをそのまま使用
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
 
             // --- 1. UIを「生成中」の状態に切り替え ---
             generateBtn.classList.add('hidden');
@@ -46,27 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { progressBarFill.style.width = '60%'; }, 500);
 
             try {
-                console.log('🔄 PDF生成リクエスト開始:', url);
-                
                 const response = await fetch(url, {
                     method: 'POST',
-                    // 修正: Content-Typeヘッダーを削除（FormDataは自動設定）
-                    // headers: { 'Content-Type': 'application/json' },  // ← 削除
-                    body: formData,  // 修正: FormDataをそのまま送信
-                    // 修正: CORS設定を追加
-                    mode: 'cors',
-                    credentials: 'same-origin',
-                    cache: 'no-cache',
-                    // 修正: タイムアウト設定（オプション）
-                    signal: AbortSignal.timeout(30000)  // 30秒タイムアウト
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
                 });
 
-                console.log('📡 サーバー応答:', response.status, response.statusText);
-
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('❌ サーバーエラー詳細:', errorText);
-                    throw new Error(`Server error: ${response.status} - ${errorText}`);
+                    const errorResult = await response.json();
+                    throw new Error(errorResult.error || `Server error: ${response.statusText}`);
                 }
 
                 // --- 3. 成功時の処理 ---
@@ -75,12 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressText.style.color = 'var(--neon-color-4)';
 
                 const blob = await response.blob();
-                console.log('📄 PDF Blob受信:', blob.size, 'bytes');
-                
                 const downloadUrl = window.URL.createObjectURL(blob);
                 
-                // ファイル名取得（フォームから）
-                const userFilename = formData.get('filename_prefix') || 'plan';
+                // ▼▼▼ ここを data.title から data.filename_prefix に修正 ▼▼▼
+                const userFilename = data.filename_prefix || 'plan';
                 const title = userFilename.replace(/ /g, '_');
                 
                 downloadBtn.href = downloadUrl;
@@ -89,21 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ダウンロードボタンを表示
                 downloadBtn.classList.remove('hidden');
 
-                console.log('✅ PDF生成・ダウンロード準備完了');
-
             } catch (error) {
                 // --- 4. エラー時の処理 ---
-                console.error('❌ 詳細エラー:', error);
-                
-                // タイムアウトエラーの特別処理
-                if (error.name === 'AbortError' || error.message.includes('timeout')) {
-                    progressText.textContent = '⏰ サーバー応答がタイムアウトしました';
-                } else if (error.message.includes('Failed to fetch')) {
-                    progressText.textContent = '🌐 サーバー接続に失敗しました';
-                } else {
-                    progressText.textContent = '❌ 生成に失敗しました';
-                }
-                
+                console.error('Error:', error);
+                progressText.textContent = '❌ 生成に失敗しました';
                 progressText.style.color = 'red';
                 progressBarFill.style.width = '0%';
 
@@ -112,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     generateBtn.classList.remove('hidden');
                 }, 2000);
 
-                alert(`企画書の生成に失敗しました。\nエラー: ${error.message}\n\nサーバーが起動しているか、ポート番号が正しいか確認してください。`);
+                alert(`企画書の生成に失敗しました。\nエラー: ${error.message}`);
             }
         });
     }
