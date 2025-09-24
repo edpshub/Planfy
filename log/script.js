@@ -1,7 +1,15 @@
-// 削除: ポート番号を保存する機能は不要になりました。
-// function savePort() { ... }
+// Function for index.html
+function savePort() {
+    const port = document.getElementById('port-input').value;
+    if (port && !isNaN(port)) {
+        localStorage.setItem('ownserverPort', port);
+        window.location.href = 'choice.html';
+    } else {
+        alert('有効なサーバー接続キー（ポート番号）を入力してください。');
+    }
+}
 
-// make1.htmlのフォーム機能を担当
+// Functionality for make1.html
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('plan-form');
     if (form) {
@@ -15,13 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            // 削除: ポート番号をlocalStorageから取得する処理は不要になりました。
-            // const port = localStorage.getItem('ownserverPort');
-            // if (!port) { ... }
+            const port = localStorage.getItem('ownserverPort');
+            if (!port) {
+                alert('サーバー接続キーが設定されていません。最初のページに戻ってください。');
+                window.location.href = 'index.html';
+                return;
+            }
 
-            // 変更: URLをCloudflare Tunnelの固定アドレスに書き換えます。
-            const url = 'https://planfy.edps.uk/generate-pdf';
-            
+            const url = `https://shard-2509.ownserver.kumassy.com:${port}/generate-pdf`;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
@@ -57,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const blob = await response.blob();
                 const downloadUrl = window.URL.createObjectURL(blob);
                 
+                // ▼▼▼ ここを data.title から data.filename_prefix に修正 ▼▼▼
                 const userFilename = data.filename_prefix || 'plan';
                 const title = userFilename.replace(/ /g, '_');
                 
